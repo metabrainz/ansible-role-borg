@@ -1,0 +1,10 @@
+---
+borg_base_directory: /opt/borg
+borg_release_directory: "{{ borg_base_directory }}/releases"
+borg_release_path: "{{ borg_release_directory }}/borg-{{ borg_version }}-{{ borg_release_type }}"
+borg_binary_path: /usr/local/bin/borg
+
+borg_version: 1.2.3
+borg_release_type: linux64
+borg_release_url: "https://github.com/borgbackup/borg/releases/download/{{ borg_version }}/borg-{{ borg_release_type }}"
+# borg_release_checksum: "sha1:XXXX"

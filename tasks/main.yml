@@ -1,0 +1,37 @@
+---
+- name: Create Borg releases directory
+  file:
+    path: "{{ borg_release_directory }}"
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+
+- name: Stat Borg binary path
+  stat:
+    path: "{{ borg_binary_path }}"
+    get_attributes: false
+    get_checksum: false
+    get_mime: false
+  register: _borg_binary
+
+- name: Fail if Borg binary path exists and is not a symlink
+  fail:
+    msg: "{{ borg_binary_path }} is not a symlink, aborting"
+  when:
+    - _borg_binary.stat.islnk is defined
+    - not _borg_binary.stat.islnk
+
+- name: Download Borg release
+  get_url:
+    url: "{{ borg_release_url }}"
+    checksum: "{{ borg_release_checksum | d(omit) }}"
+    dest: "{{ borg_release_path }}"
+    mode: "0755"
+
+- name: Install Borg symlink
+  file:
+    path: "{{ borg_binary_path }}"
+    src: "{{ borg_release_path }}"
+    state: link
+    force: true

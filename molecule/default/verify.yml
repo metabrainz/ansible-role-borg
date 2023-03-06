@@ -1,0 +1,21 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ensure Borg was downloaded to the correct path
+      stat:
+        path: /opt/borg/releases/borg-1.2.3-linuxnew64
+        get_attributes: false
+        get_checksum: false
+        get_mime: false
+      register: result
+      changed_when: false
+      failed_when: result.stat.isreg is not defined or not result.stat.isreg
+
+    - name: Ensure Borg symlink is installed
+      stat:
+        path: /usr/local/bin/borg
+      register: result
+      changed_when: false
+      failed_when: result.stat.islnk is not defined or not result.stat.islnk
