@@ -8,3 +8,11 @@ borg_version: 1.2.3
 borg_release_type: linux64
 borg_release_url: "https://github.com/borgbackup/borg/releases/download/{{ borg_version }}/borg-{{ borg_release_type }}"
 # borg_release_checksum: "sha1:XXXX"
+
+borg_manage_user: true
+borg_user: borg
+#borg_user_groups:
+#borg_user_append:
+#borg_user_home:
+#borg_user_create_home:
+#borg_user_shell:

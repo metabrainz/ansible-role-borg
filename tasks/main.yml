@@ -35,3 +35,13 @@
     src: "{{ borg_release_path }}"
     state: link
     force: true
+
+- name: Create borg user account
+  user:
+    name: "{{ borg_user }}"
+    groups: "{{ borg_user_groups | d(omit) }}"
+    append: "{{ borg_user_append | d(omit) }}"
+    shell: "{{ borg_user_shell | d(omit) }}"
+    home: "{{ borg_user_home | d(omit) }}"
+    create_home: "{{ borg_user_create_home | d(omit) }}"
+  when: borg_manage_user | bool
