@@ -28,6 +28,7 @@
     checksum: "{{ borg_release_checksum | d(omit) }}"
     dest: "{{ borg_release_path }}"
     mode: "0755"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Install Borg symlink
   file:
